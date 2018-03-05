@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RPS</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="icon" href="Assets/images/favicon.png">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.10.1/firebase.js"></script>
+</head>
+<body>	
+	<div class="jumbotron-fluid">ROCK PAPER SCISSORS</div>
+	<br>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<form>
+  					<div class="form-group">
+    					<label for="user-name">Enter Name</label>
+    					<input type="text" class="form-control" id="user-name" placeholder="Name">
+  					</div>
+  					<button type="button" class="btn btn-primary" id="add-player" type="submit">Submit</button>
+  				</form>	
+			</div>
+			<div class="col-sm-4">
+				<div class="card infoBox">
+  					<div class="card-header">
+    					<center><span id="infoText"></span></center>
+  					</div>
+  					<div class="card-body">
+    					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+  					</div>
+				</div>
+			</div>
+			<div class="col-sm-4"></div>
+		</div>	
+		<br>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="card playerOne">
+  					<div class="card-header">
+    					<center><span id="p1name-display"></span></center>
+  					</div>
+  					<div class="card-body">
+    					<center><p class="card-text" id="selectRock">Rock</p></center>
+    					<br>
+    					<center><p class="card-text" id="selectPaper">Paper</p></center>
+    					<br>
+    					<center><p class="card-text" id="selectScissor">Scissor</p></center>
+  					</div>
+  					<div class="card-footer">
+  						<center><span id="p1Wins">Wins: 0</span></center>
+  						<center><span id="p1Losses">Losses: 0</span></center>
+  					</div>
+				</div>
+			</div>
+				
+			<div class="col-sm-4">
+				<div class="card vsBox">
+  					<div class="card-header">
+    					<center><span id="winnerName">VS</span></center>
+  					</div>
+  					<div class="card-body">
+    					<p class="card-text vsText"></p>
+  					</div>
+				</div>
+			</div>
+				
+			<div class="col-sm-4">
+				<div class="card playerTwo">
+  					<div class="card-header">
+    					<center><span id="p2Name">Player 2</span></center>
+  					</div>
+  					<div class="card-body">
+    					<center><p class="card-text" id="selectRock">Rock</p></center>
+    					<br>
+    					<center><p class="card-text" id="selectPaper">Paper</p></center>
+    					<br>
+    					<center><p class="card-text" id="selectScissor">Scissor</p></center>
+  					</div>
+  					<div class="card-footer">
+  						<center><span id="p2Wins">Wins: 0</span></center>
+  						<center><span id="p2Losses">Losses: 0</span></center>
+  					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-sm-8">
+				<div id="chatArea"></div>
+			</div>
+			<div class="col-sm-4">
+				<form>
+  					<div class="form-group chatBox">
+    					<label for="chat-input">Chat Box</label>
+    					<input type="text" class="form-control chatText" id="chat-input">
+    					<br>
+    					<center><button class="btn btn-default" id="add-chat" type="submit">Send</button></center>
+  					</div>
+  				</form>	
+			</div>
+		</div>
+	</div>	
+	
+
+
+
+<script src="assets/javascript/app.js"></script>
+</body>
+</html>

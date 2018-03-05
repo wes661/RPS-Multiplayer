@@ -1,0 +1,33 @@
+body{
+	
+}
+
+.card-text{
+	font-size: 25px;
+}
+
+.infoBox{
+	width: 100%;
+	height: 200px;
+}
+
+.jumbotron-fluid{
+	font-size: 40px;
+	text-align: center;
+	background: rgba(0,0,0,0.5);
+	color: white;
+}
+
+.playerOne, .playerTwo, .vsBox{
+	height: auto;
+	width: 100%;
+	
+}
+.chatBox{
+	width: 75%;
+}
+#chatArea{
+	width: 75%;
+	height: 200px;
+	border: 1px solid black;
+}
