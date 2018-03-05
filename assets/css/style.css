@@ -31,3 +31,6 @@ body{
 	height: 200px;
 	border: 1px solid black;
 }
+#selectRock, #selectPaper, #selectScissor{
+	display: none;
+}

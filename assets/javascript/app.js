@@ -16,6 +16,7 @@ var config = {
   var playerTwo = false;
   var playerOneName = "";
   var playerTwonName = "";
+  var userplayerName = "";
   var playerOneWins = 0;
   var playerOneLosses = 0;
   var playerTwoWins = 0;
@@ -26,30 +27,55 @@ var config = {
   var playerOneDone = false;
   var playerTwoDone = false;
 
-  //#player-button and #player-name are not added, going to make form for these in the html
+  database.ref('players').on("value", function(snapshot){
+
+    if(snapshot.child("playerOne").exists()) {
+      console.log('player one exists');
+
+      playerOne = snapshot.val().playerOne;
+      playerOneName = playerOne.name;
+      $("#selectRock").show('slow');
+      $("#selectPaper").show('slow');
+      $("#selectScissor").show('slow');
+    }
+
+    $("#p1name-display").text(playerOneName);
+    $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
+    
+
+  }, function(errorObject) {
+      console.log("Errors handled: " + errorObject.code);
+    });
+
+  
 
   $("#add-player").on("click", function() {
       // Don't refresh the page!
       event.preventDefault();
 
+      
+
+      if(($('#user-name').val().trim() !== "") && !(playerOne && playerTwo) ) {
+
+        if(playerOne === false) {
+          console.log('adding player one');
+        }
+      }
+
       // YOUR TASK!!!
       // Code in the logic for storing and retrieving the most recent user.
       // Don't forget to provide initial data to your Firebase database.
-      playerOneName = $("#user-name").val().trim();
+      userplayerName = $("#user-name").val().trim();
+
+      playerOne = {
+        name: userplayerName,
+        wins: 0,
+        losses: 0,
+        ties: 0,
+        choice: ""
+      };
       
 
-      database.ref('players').set({
-        playerOneName: playerOneName,
-        playerOne: true
-       
-      });
+      database.ref('players/playerOne').set(playerOne);
 
-    });
-
-  database.ref('players').on("value", function(snapshot){
-
-    $("#p1name-display").html(snapshot.val().playerOneName);
-
-  }, function(errorObject) {
-      console.log("Errors handled: " + errorObject.code);
     });
