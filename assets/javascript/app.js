@@ -39,7 +39,7 @@ var config = {
       $(".p1selectScissor").show('slow');
       $("#p1name-display").text(playerOneName);
       $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
-    }
+    };
 
     if(snapshot.child("playerTwo").exists()) {
       console.log('player two exists');
@@ -51,7 +51,12 @@ var config = {
       $(".p2selectScissor").show('slow');
       $("#p2name-display").text(playerTwoName);
       $("#p2Stats").html("Win: " + playerTwo.wins + " Losses: " + playerTwo.losses + " Ties: " + playerTwo.ties);
-    }
+      $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
+    };
+
+    if( (playerOne !== null) && (playerTwo !== null) ){
+    $('#infoText').html("Waiting for " + playerOneName + " to select");
+    };
     
 
   }, function(errorObject) {
@@ -69,21 +74,22 @@ var config = {
       if(($('#user-name').val().trim() !== "") && !(playerOne && playerTwo) ) {
 
         if(playerOne === null) {
-            console.log('adding player one');
-     
-            userplayerName = $("#user-name").val().trim();
+          console.log('adding player one');
+   
+          userplayerName = $("#user-name").val().trim();
 
-            playerOne = {
-              name: userplayerName,
-              wins: 0,
-              losses: 0,
-              ties: 0,
-              choice: ""
-            };
-      
-              $('#p1Stats').show('slow');
-              database.ref('players/playerOne').set(playerOne);
-              database.ref('players/playerOne').onDisconnect().remove();
+          playerOne = {
+            name: userplayerName,
+            wins: 0,
+            losses: 0,
+            ties: 0,
+            choice: ""
+          };
+            $('.player-input').fadeOut('slow');
+            $('#add-player').fadeOut('slow');
+            $('#p1Stats').show('slow');
+            database.ref('players/playerOne').set(playerOne);
+            database.ref('players/playerOne').onDisconnect().remove();
         } else if( (playerOne !== null) && (playerTwo === null) ){
           console.log('Adding Player 2');
 
@@ -96,7 +102,8 @@ var config = {
               ties: 0,
               choice: ""
             };
-      
+              $('.player-input').fadeOut('slow');
+              $('#add-player').fadeOut('slow');
               $('#p2Stats').show('slow');
               database.ref('players/playerTwo').set(playerTwo);
               database.ref('players/playerTwo').onDisconnect().remove();
@@ -104,3 +111,4 @@ var config = {
       }        
 
     });
+
