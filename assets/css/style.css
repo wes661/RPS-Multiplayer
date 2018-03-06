@@ -8,8 +8,9 @@ body{
 
 .infoBox{
 	width: 100%;
-	height: 200px;
+	height: auto;
 }
+
 
 .jumbotron-fluid{
 	font-size: 40px;
@@ -24,13 +25,13 @@ body{
 	
 }
 .chatBox{
-	width: 75%;
+	width: 50%;
 }
-#chatArea{
-	width: 75%;
+.chat-area{
 	height: 200px;
-	border: 1px solid black;
 }
+
+
 .p1selectRock, .p1selectPaper, .p1selectScissor, .p2selectRock, .p2selectPaper, .p2selectScissor{
 	display: none;
 }

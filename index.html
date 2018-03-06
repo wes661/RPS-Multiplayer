@@ -29,7 +29,7 @@
     					<center>Info</center>
   					</div>
   					<div class="card-body">
-    					<p class="card-text"><span id="infoText"></span></p>
+    					<p class="card-text"><center><span id="infoText"></span></center></p>
   					</div>
 				</div>
 			</div>
@@ -60,7 +60,7 @@
   					<div class="card-header">
     					<center><span id="winnerName">VS</span></center>
   					</div>
-  					<div class="card-body">
+  					<div class="card-body vsBox">
     					<p class="card-text vsText"></p>
   					</div>
 				</div>
@@ -86,19 +86,22 @@
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-sm-8">
-				<div id="chatArea"></div>
-			</div>
+			<div class="col-sm-4"></div>
 			<div class="col-sm-4">
+				<div class="card chat-area">
+  					<div class="card-body">
+  					</div>
+				</div>
 				<form>
   					<div class="form-group chatBox">
     					<label for="chat-input">Chat Box</label>
     					<input type="text" class="form-control chatText" id="chat-input">
     					<br>
-    					<center><button class="btn btn-default" id="add-chat" type="submit">Send</button></center>
+    					<center><button class="btn btn-primary" id="add-chat" type="submit">Send</button></center>
   					</div>
   				</form>	
 			</div>
+			<div class="col-sm-4"></div>
 		</div>
 	</div>	
 	
