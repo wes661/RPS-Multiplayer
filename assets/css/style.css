@@ -31,6 +31,10 @@ body{
 	height: 200px;
 	border: 1px solid black;
 }
-#selectRock, #selectPaper, #selectScissor{
+.p1selectRock, .p1selectPaper, .p1selectScissor, .p2selectRock, .p2selectPaper, .p2selectScissor{
+	display: none;
+}
+
+#p1Stats{
 	display: none;
 }
