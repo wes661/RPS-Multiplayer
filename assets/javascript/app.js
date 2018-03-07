@@ -17,6 +17,7 @@ var config = {
   var playerOneName = "";
   var playerTwonName = "";
   var userplayerName = "";
+  var turn;
   var playerOneWins = 0;
   var playerOneLosses = 0;
   var playerTwoWins = 0;
@@ -34,9 +35,9 @@ var config = {
 
       playerOne = snapshot.val().playerOne;
       playerOneName = playerOne.name;
-      $(".p1selectRock").show('slow');
-      $(".p1selectPaper").show('slow');
-      $(".p1selectScissor").show('slow');
+      $(".p1Rock").show('slow');
+      $(".p1Paper").show('slow');
+      $(".p1Scissor").show('slow');
       $("#p1name-display").text(playerOneName);
       $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
     };
@@ -46,9 +47,9 @@ var config = {
 
       playerTwo = snapshot.val().playerTwo;
       playerTwoName = playerTwo.name;
-      $(".p2selectRock").show('slow');
-      $(".p2selectPaper").show('slow');
-      $(".p2selectScissor").show('slow');
+      $(".p2Rock").show('slow');
+      $(".p2Paper").show('slow');
+      $(".p2Scissor").show('slow');
       $("#p2name-display").text(playerTwoName);
       $("#p2Stats").html("Win: " + playerTwo.wins + " Losses: " + playerTwo.losses + " Ties: " + playerTwo.ties);
       $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
@@ -64,7 +65,7 @@ var config = {
     });
 
   
-
+//Adding player one and player two and setting to database----------------------
   $("#add-player").on("click", function() {
       // Don't refresh the page!
       event.preventDefault();
@@ -83,7 +84,8 @@ var config = {
             wins: 0,
             losses: 0,
             ties: 0,
-            choice: ""
+            choice: "",
+            turn: false
           };
             $('.player-input').fadeOut('slow');
             $('#add-player').fadeOut('slow');
@@ -93,6 +95,8 @@ var config = {
         } else if( (playerOne !== null) && (playerTwo === null) ){
           console.log('Adding Player 2');
 
+          turn = 1;
+
           userplayerName = $("#user-name").val().trim();
 
             playerTwo = {
@@ -100,15 +104,22 @@ var config = {
               wins: 0,
               losses: 0,
               ties: 0,
-              choice: ""
+              choice: "",
+              turn: false
             };
               $('.player-input').fadeOut('slow');
               $('#add-player').fadeOut('slow');
               $('#p2Stats').show('slow');
+              database.ref('turn').set(turn);
               database.ref('players/playerTwo').set(playerTwo);
+              database.ref('turn').onDisconnect().remove();
               database.ref('players/playerTwo').onDisconnect().remove();
         }
       }        
-
     });
-
+  $('.p1select').on('click', function(){
+    if(turn === 1){
+      alert($(this).data('choice'))
+    }
+  });
+//------------------------------------------------------------------------------
