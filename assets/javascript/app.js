@@ -122,4 +122,13 @@ var config = {
       $(".Scissor").hide('slow');
     }
   });
+  $('.pSelect').on('click', function(){
+    if(playerTwo.turn === false && playerTwoName === userplayerName){
+      alert($(this).data('choice'))
+      database.ref('players/playerTwo').update({'choice':$(this).data('choice')});
+      $(".Rock").hide('slow');
+      $(".Paper").hide('slow');
+      $(".Scissor").hide('slow');
+    }
+  });
 //------------------------------------------------------------------------------
