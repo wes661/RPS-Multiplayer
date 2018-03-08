@@ -9,7 +9,7 @@ var config = {
   firebase.initializeApp(config);
 
   var database = firebase.database();
-
+  
 //Global variables for game
 
   var playerOne = null;
@@ -17,7 +17,7 @@ var config = {
   var playerOneName = "";
   var playerTwonName = "";
   var userplayerName = "";
-  var turn;
+  var turn = false;
   var playerOneWins = 0;
   var playerOneLosses = 0;
   var playerTwoWins = 0;
@@ -35,11 +35,8 @@ var config = {
 
       playerOne = snapshot.val().playerOne;
       playerOneName = playerOne.name;
-      $(".p1Rock").show('slow');
-      $(".p1Paper").show('slow');
-      $(".p1Scissor").show('slow');
       $("#p1name-display").text(playerOneName);
-      $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
+      $("#p1Stats").html("Win: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
     };
 
     if(snapshot.child("playerTwo").exists()) {
@@ -47,16 +44,15 @@ var config = {
 
       playerTwo = snapshot.val().playerTwo;
       playerTwoName = playerTwo.name;
-      $(".p2Rock").show('slow');
-      $(".p2Paper").show('slow');
-      $(".p2Scissor").show('slow');
+      $(".Rock").show('slow');
+      $(".Paper").show('slow');
+      $(".Scissor").show('slow');
       $("#p2name-display").text(playerTwoName);
-      $("#p2Stats").html("Win: " + playerTwo.wins + " Losses: " + playerTwo.losses + " Ties: " + playerTwo.ties);
-      $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
+      $("#p2Stats").html("Win: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
     };
 
     if( (playerOne !== null) && (playerTwo !== null) ){
-    $('#infoText').html("Waiting for " + playerOneName + " to select");
+
     };
     
 
@@ -95,7 +91,7 @@ var config = {
         } else if( (playerOne !== null) && (playerTwo === null) ){
           console.log('Adding Player 2');
 
-          turn = 1;
+          turn = true;
 
           userplayerName = $("#user-name").val().trim();
 
@@ -110,16 +106,20 @@ var config = {
               $('.player-input').fadeOut('slow');
               $('#add-player').fadeOut('slow');
               $('#p2Stats').show('slow');
-              database.ref('turn').set(turn);
+              database.ref('players/playerOne').update({'turn':turn});
               database.ref('players/playerTwo').set(playerTwo);
               database.ref('turn').onDisconnect().remove();
               database.ref('players/playerTwo').onDisconnect().remove();
         }
       }        
     });
-  $('.p1select').on('click', function(){
-    if(turn === 1){
+  $('.pSelect').on('click', function(){
+    if(playerOne.turn === true && playerOneName === userplayerName){
       alert($(this).data('choice'))
+      database.ref('players/playerOne').update({'choice':$(this).data('choice')});
+      $(".Rock").hide('slow');
+      $(".Paper").hide('slow');
+      $(".Scissor").hide('slow');
     }
   });
 //------------------------------------------------------------------------------
