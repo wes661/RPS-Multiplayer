@@ -44,9 +44,7 @@ var config = {
 
       playerTwo = snapshot.val().playerTwo;
       playerTwoName = playerTwo.name;
-      $(".Rock").show('slow');
-      $(".Paper").show('slow');
-      $(".Scissor").show('slow');
+      $(".pSelect").show('slow');
       $("#p2name-display").text(playerTwoName);
       $("#p2Stats").html("Win: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
     };
@@ -114,21 +112,17 @@ var config = {
       }        
     });
   $('.pSelect').on('click', function(){
-    if(playerOne.turn === true && playerOneName === userplayerName){
+    if(playerOneName === userplayerName){
       alert($(this).data('choice'))
+      $(".pSelect").hide('slow');
       database.ref('players/playerOne').update({'choice':$(this).data('choice')});
-      $(".Rock").hide('slow');
-      $(".Paper").hide('slow');
-      $(".Scissor").hide('slow');
     }
   });
   $('.pSelect').on('click', function(){
-    if(playerTwo.turn === false && playerTwoName === userplayerName){
+    if(playerTwoName === userplayerName){
       alert($(this).data('choice'))
+      $(".pSelect").hide('slow');
       database.ref('players/playerTwo').update({'choice':$(this).data('choice')});
-      $(".Rock").hide('slow');
-      $(".Paper").hide('slow');
-      $(".Scissor").hide('slow');
     }
   });
 //------------------------------------------------------------------------------

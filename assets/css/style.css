@@ -39,7 +39,7 @@ body{
 }
 
 
-.Rock, .Paper, .Scissor{
+.pSelect{
 	display: none;
 	color: white;
 }
