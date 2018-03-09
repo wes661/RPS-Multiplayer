@@ -17,16 +17,8 @@ var config = {
   var playerOneName = "";
   var playerTwonName = "";
   var userplayerName = "";
-  var turn = false;
-  var playerOneWins = 0;
-  var playerOneLosses = 0;
-  var playerTwoWins = 0;
-  var playerTwoLosses = 0;
-  var playerTies = 0;
-  var playerOneSelect;
-  var playerTwoSelect; 
-  var playerOneDone = false;
-  var playerTwoDone = false;
+  var turn = 1;
+  
 
   database.ref('players').on("value", function(snapshot){
 
@@ -35,8 +27,9 @@ var config = {
 
       playerOne = snapshot.val().playerOne;
       playerOneName = playerOne.name;
+      //$(".p1Select").show('slow');
       $("#p1name-display").text(playerOneName);
-      $("#p1Stats").html("Win: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
+      $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
     };
 
     if(snapshot.child("playerTwo").exists()) {
@@ -44,15 +37,40 @@ var config = {
 
       playerTwo = snapshot.val().playerTwo;
       playerTwoName = playerTwo.name;
-      $(".pSelect").show('slow');
+      //$(".p2Select").show('slow');
       $("#p2name-display").text(playerTwoName);
-      $("#p2Stats").html("Win: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
+      $("#p2Stats").html("Win: " + playerTwo.wins + " Losses: " + playerTwo.losses + " Ties: " + playerTwo.ties);
     };
 
-    if( (playerOne !== null) && (playerTwo !== null) ){
+    if ((playerOne.choice === "rock") || (playerOne.choice === "paper") || (playerOne.choice === "scissor")) {
 
-    };
-    
+      if ((playerOne === "rock") && (playerTwo.choice === "scissor")) {
+        alert('player one wins');
+        alert('player two loses');
+      } else if ((playerOne.choice === "rock") && (playerTwo.choice === "paper")) {
+        alert('player one loses');
+        alert('player two wins');
+      } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "rock")) {
+        alert('player one loses');
+        alert('player two wins');
+        losses++;
+      } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "paper")) {
+        alert('player one wins');
+        alert('player two loses');
+      } else if ((playerOne.choice === "paper") && (playerTwo.choice === "rock")) {
+        alert('player one wins');
+        alert('player two loses');
+      } else if ((playerOne.choice === "paper") && (playerTwo.choice === "scissor")) {
+        alert('player one loses');
+        alert('player two wins');
+      } else if (playerOne.choice === playerTwo.choice) {
+        alert('tie game')
+      }
+      database.ref('players/playerOne').update({'choice': ""});
+      database.ref('players/playerTwo').update({'choice': ""});
+       //$(".p1Select").show('slow');
+      // $(".p2Select").show('slow');
+    }
 
   }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
@@ -78,18 +96,18 @@ var config = {
             wins: 0,
             losses: 0,
             ties: 0,
-            choice: "",
-            turn: false
+            choice: ""
           };
             $('.player-input').fadeOut('slow');
             $('#add-player').fadeOut('slow');
+            $(".p1Select").show('slow');
             $('#p1Stats').show('slow');
             database.ref('players/playerOne').set(playerOne);
             database.ref('players/playerOne').onDisconnect().remove();
         } else if( (playerOne !== null) && (playerTwo === null) ){
           console.log('Adding Player 2');
 
-          turn = true;
+          
 
           userplayerName = $("#user-name").val().trim();
 
@@ -98,31 +116,38 @@ var config = {
               wins: 0,
               losses: 0,
               ties: 0,
-              choice: "",
-              turn: false
+              choice: ""
             };
               $('.player-input').fadeOut('slow');
               $('#add-player').fadeOut('slow');
+              $(".p2Select").show('slow');
               $('#p2Stats').show('slow');
-              database.ref('players/playerOne').update({'turn':turn});
+              //database.ref('players/playerOne').update({'turn':turn});
               database.ref('players/playerTwo').set(playerTwo);
               database.ref('turn').onDisconnect().remove();
               database.ref('players/playerTwo').onDisconnect().remove();
         }
       }        
     });
-  $('.pSelect').on('click', function(){
-    if(playerOneName === userplayerName){
+  $('.p1Select').on('click', function(){
+    if(playerOneName === userplayerName && playerTwo !== null){
       alert($(this).data('choice'))
-      $(".pSelect").hide('slow');
+      $(".p1Select").hide('slow');
+      console.log(turn);
+      database.ref('turn').set(turn);
       database.ref('players/playerOne').update({'choice':$(this).data('choice')});
     }
   });
-  $('.pSelect').on('click', function(){
-    if(playerTwoName === userplayerName){
+  $('.p2Select').on('click', function(){
+    if(playerTwoName === userplayerName && playerOne !== null){
       alert($(this).data('choice'))
-      $(".pSelect").hide('slow');
+      $(".p2Select").hide('slow');
       database.ref('players/playerTwo').update({'choice':$(this).data('choice')});
     }
   });
+
+  function playAgain(){
+    database.ref('players/playerOne').update({'choice': ""});
+    database.ref('players/playerTwo').update({'choice': ""});
+  }  
 //------------------------------------------------------------------------------

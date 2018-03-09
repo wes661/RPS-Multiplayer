@@ -39,7 +39,7 @@ body{
 }
 
 
-.pSelect{
+.p1Select,.p2Select{
 	display: none;
 	color: white;
 }
