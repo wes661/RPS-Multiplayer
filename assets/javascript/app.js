@@ -29,7 +29,7 @@ var config = {
       playerOneName = playerOne.name;
       //$(".p1Select").show('slow');
       $("#p1name-display").text(playerOneName);
-      $("#p1Stats").html("Win: " + playerOne.wins + " Losses: " + playerOne.losses + " Ties: " + playerOne.ties);
+      $("#p1Stats").html("Win: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
     };
 
     if(snapshot.child("playerTwo").exists()) {
@@ -39,10 +39,10 @@ var config = {
       playerTwoName = playerTwo.name;
       //$(".p2Select").show('slow');
       $("#p2name-display").text(playerTwoName);
-      $("#p2Stats").html("Win: " + playerTwo.wins + " Losses: " + playerTwo.losses + " Ties: " + playerTwo.ties);
+      $("#p2Stats").html("Win: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
     };
 
-    if ((playerOne.choice === "rock") || (playerOne.choice === "paper") || (playerOne.choice === "scissor")) {
+    if (playerOne.choice !== "" && playerTwo.choice !== "") {
 
       if ((playerOne === "rock") && (playerTwo.choice === "scissor")) {
         alert('player one wins');
@@ -66,10 +66,10 @@ var config = {
       } else if (playerOne.choice === playerTwo.choice) {
         alert('tie game')
       }
-      database.ref('players/playerOne').update({'choice': ""});
-      database.ref('players/playerTwo').update({'choice': ""});
-       //$(".p1Select").show('slow');
-      // $(".p2Select").show('slow');
+       database.ref('players/playerOne').update({'choice': ""});
+       database.ref('players/playerTwo').update({'choice': ""});
+       $(".p1Select").show('slow');
+       $(".p2Select").show('slow');
     }
 
   }, function(errorObject) {
