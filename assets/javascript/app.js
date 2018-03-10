@@ -1,3 +1,4 @@
+//initializing firebase-------------------------------------------
 var config = {
     apiKey: "AIzaSyC85Anrjx9UxRoRB8Mi6RQaKhqdlS76DWE",
     authDomain: "rps-multiplayer-6a9da.firebaseapp.com",
@@ -9,17 +10,17 @@ var config = {
   firebase.initializeApp(config);
 
   var database = firebase.database();
+//----------------------------------------------------------------- 
   
 //Global variables for game
-
   var playerOne = null;
   var playerTwo = null;
   var playerOneName = "";
   var playerTwonName = "";
   var userplayerName = "";
-  var turn = 1;
+//-------------------------
   
-
+//database snapshot portion to see if players are logged in and displayed-----------------------
   database.ref('players').on("value", function(snapshot){
 
     if(snapshot.child("playerOne").exists()) {
@@ -27,9 +28,8 @@ var config = {
 
       playerOne = snapshot.val().playerOne;
       playerOneName = playerOne.name;
-      //$(".p1Select").show('slow');
       $("#p1name-display").text(playerOneName);
-      $("#p1Stats").html("Win: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
+      $("#p1Stats").html("Wins: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
     };
 
     if(snapshot.child("playerTwo").exists()) {
@@ -37,51 +37,75 @@ var config = {
 
       playerTwo = snapshot.val().playerTwo;
       playerTwoName = playerTwo.name;
-      //$(".p2Select").show('slow');
       $("#p2name-display").text(playerTwoName);
-      $("#p2Stats").html("Win: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
+      $("#p2Stats").html("Wins: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
     };
+//----------------------------------------------------------------------------------------------
 
+//database snapshot portion checking players choice then deciding who won, lost, and tied
     if (playerOne.choice !== "" && playerTwo.choice !== "") {
 
       if ((playerOne.choice === "rock") && (playerTwo.choice === "scissor")) {
-        alert('player one wins');
-        alert('player two loses');
+        database.ref('players/playerOne').update({'wins': +1});
+        database.ref('players/playerTwo').update({'losses': +1});
+        $(".infoText").html(playerOneName + " Wins!");
+        $(".vsText").html("Rock crushes scissors!");
+
       } else if ((playerOne.choice === "rock") && (playerTwo.choice === "paper")) {
-        alert('player one loses');
-        alert('player two wins');
+        database.ref('players/playerOne').update({'losses': +1});
+        database.ref('players/playerTwo').update({'wins': +1});
+        $(".infoText").html(playerTwoName + " Wins!");
+        $(".vsText").html("Paper covers rock!");
+
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "rock")) {
-        alert('player one loses');
-        alert('player two wins');
+        database.ref('players/playerOne').update({'losses': +1});
+        database.ref('players/playerTwo').update({'wins': +1});
+        $(".infoText").html(playerTwoName + " Wins!");
+        $(".vsText").html("Rock crushes scissors!");
+
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "paper")) {
-        alert('player one wins');
-        alert('player two loses');
+        database.ref('players/playerOne').update({'wins': +1});
+        database.ref('players/playerTwo').update({'losses': +1});
+        $(".infoText").html(playerOneName + " Wins!");
+        $(".vsText").html("Scissor cuts through paper!");
+
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "rock")) {
-        alert('player one wins');
-        alert('player two loses');
+        database.ref('players/playerOne').update({'wins': +1});
+        database.ref('players/playerTwo').update({'losses': +1});
+        $(".infoText").html(playerOneName + " Wins!");
+        $(".vsText").html("Paper covers rock!");
+
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "scissor")) {
-        alert('player one loses');
-        alert('player two wins');
+        database.ref('players/playerOne').update({'losses': +1});
+        database.ref('players/playerTwo').update({'wins': +1});
+        $(".infoText").html(playerTwoName + " Wins!");
+        $(".vsText").html("Scissor cuts through paper!");
+
       } else if (playerOne.choice === playerTwo.choice) {
-        alert('tie game')
+        database.ref('players/playerOne').update({'ties': +1});
+        database.ref('players/playerTwo').update({'ties': +1});
+        $(".infoText").html("Tie Game!");
+        $(".vsText").html(playerOneName + " & " + playerTwoName + " chose the same!");
       }
+//----------------------------------------------------------------------------------------
+
+//database resets players choice so they can play again-----------
        database.ref('players/playerOne').update({'choice': ""});
        database.ref('players/playerTwo').update({'choice': ""});
        $(".p1Select").show('slow');
        $(".p2Select").show('slow');
     }
+//----------------------------------------------------------------
 
+//error handling------------------------------------------
   }, function(errorObject) {
       console.log("Errors handled: " + errorObject.code);
     });
-
+//--------------------------------------------------------
   
-//Adding player one and player two and setting to database----------------------
+//Adding player one and player two and setting to database---------------------------
   $("#add-player").on("click", function() {
-      // Don't refresh the page!
       event.preventDefault();
-
-      
 
       if(($('#user-name').val().trim() !== "") && !(playerOne && playerTwo) ) {
 
@@ -130,21 +154,14 @@ var config = {
     });
   $('.p1Select').on('click', function(){
     if(playerOneName === userplayerName && playerTwo !== null){
-      alert($(this).data('choice'))
       $(".p1Select").hide('slow');
       database.ref('players/playerOne').update({'choice':$(this).data('choice')});
     }
   });
   $('.p2Select').on('click', function(){
     if(playerTwoName === userplayerName && playerOne !== null){
-      alert($(this).data('choice'))
       $(".p2Select").hide('slow');
       database.ref('players/playerTwo').update({'choice':$(this).data('choice')});
     }
   });
-
-  function playAgain(){
-    database.ref('players/playerOne').update({'choice': ""});
-    database.ref('players/playerTwo').update({'choice': ""});
-  }  
-//------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------

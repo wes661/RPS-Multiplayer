@@ -11,6 +11,8 @@ body{
 	font-size: 30px;
 }
 
+
+
 .infoBox{
 	width: 100%;
 	height: auto;
@@ -23,8 +25,8 @@ body{
 	background: rgba(0,0,0,0.4);
 	color: white;
 }
-#p2name-display, #p1name-display, #vsTitle{
-	font-size: 40px;
+#p2name-display, #p1name-display, .infoDisplay{
+	font-size: 35px;
 }
 
 .playerOne, .playerTwo, .vsBox{
