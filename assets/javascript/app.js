@@ -44,7 +44,7 @@ var config = {
 
     if (playerOne.choice !== "" && playerTwo.choice !== "") {
 
-      if ((playerOne === "rock") && (playerTwo.choice === "scissor")) {
+      if ((playerOne.choice === "rock") && (playerTwo.choice === "scissor")) {
         alert('player one wins');
         alert('player two loses');
       } else if ((playerOne.choice === "rock") && (playerTwo.choice === "paper")) {
@@ -53,7 +53,6 @@ var config = {
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "rock")) {
         alert('player one loses');
         alert('player two wins');
-        losses++;
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "paper")) {
         alert('player one wins');
         alert('player two loses');
@@ -133,8 +132,6 @@ var config = {
     if(playerOneName === userplayerName && playerTwo !== null){
       alert($(this).data('choice'))
       $(".p1Select").hide('slow');
-      console.log(turn);
-      database.ref('turn').set(turn);
       database.ref('players/playerOne').update({'choice':$(this).data('choice')});
     }
   });
