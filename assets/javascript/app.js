@@ -15,8 +15,6 @@ var config = {
 //Global variables for game--------------------------------------------------------------
   var playerOne = null;
   var playerTwo = null;
-  var p1Message = null;
-  var p2Message = null;
   var playerOneName = "";
   var playerTwonName = "";
   var userplayerName = "";
@@ -123,13 +121,12 @@ var config = {
 //---------------------------------------------------------------------------------------
 
 //snapshot for chat handling-------------------------------------------------------------
-database.ref("chat").on("child_added", function(snapshot){
-  var chatMsg = snapshot.val();
-	var chatEntry = $("<div>").html(chatMsg);
+database.ref("chat/message").on("child_added", function(childSnapshot){
+  $('#chatTextArea').append(childSnapshot.val().message);
   
-  $("#chatTextArea").append(chatEntry);
-	$("#chatTextArea").scrollTop($("#chatTextArea")[0].scrollHeight);
-}),
+}, function(errorObject) {
+  console.log("Errors handled: " + errorObject.code);
+});
 
   
 //Adding player one and player two and setting to database-------------------------------
@@ -176,12 +173,8 @@ database.ref("chat").on("child_added", function(snapshot){
               $('#p2Stats').show('slow');
               database.ref('players/playerTwo').set(playerTwo);
               database.ref('players/playerTwo').onDisconnect().remove();
-              database.ref('chat/p2Message').onDisconnect().remove();
-        }
-        var msg = userplayerName + " has joined!";
-        var chatKey = database.ref().child("chat").push().key;
-        database.ref("chat" + chatKey).set(msg);
-      }        
+        }        
+      } 
     });
   //-------------------------------------------------------------------------------------
 
@@ -205,13 +198,15 @@ database.ref("chat").on("child_added", function(snapshot){
 
 //chat box----
 
-$("#add-chat").on("click", function(){
-  event.preventDefault();
+var message = ""
 
-  if(($('#chat-input').val().trim() !== "" && userplayerName !== "")){
-    var msg = userplayerName + ": " + $("#chat-input").val().trim();
-    $('#chat-input').val('');
-    var chatKey = database.ref().child("chat").push().key;
-    database.ref("chat" + chatKey).set(msg);
-  }
+$("#add-chat").on("click", function(event){
+  event.preventDefault();
+  message = userplayerName + ": " + $('#chat-input').val().trim() + "<br>";
+  database.ref('chat/message').push({
+    message: message
+  });
+  $('#chat-input').val('');
+  database.ref('chat/message').onDisconnect().remove();
+  
 });
