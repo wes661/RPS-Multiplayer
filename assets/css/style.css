@@ -45,18 +45,19 @@ body{
 }
 .chatBox{
 	width: 25%;
-	margin-left: 10%;
+	
 }
 .chat-area{
-	height: 200px;
+	height: 240px;
 	font-size: 20px;
-	width: 35.5%;
-	margin-left: 5%;
+	width: 50%;
+	
 }
 #chatTextArea{
 	height: 200px;
 	overflow: auto;
 	font-family: sans-serif;
+	
 }
 
 
@@ -72,7 +73,7 @@ body{
 	font-family: sans-serif;
 }
 
-.rpsButton{
+.rpsButton, #chat-input{
 	background: rgba(0,0,0,0.6);
 	color: white;
 	width: auto;
