@@ -51,44 +51,37 @@ var config = {
       if (playerOne.choice === "rock" && playerTwo.choice === "scissor") {
         playerTwo.losses++;
         playerOne.wins++;
-        $(".infoText").html(playerOneName + " Wins!");
-        $(".vsText").html("Rock crushes scissors!");
+        $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Rock crushes scissors!");
 
       } else if ((playerOne.choice === "rock") && (playerTwo.choice === "paper")) {
         playerOne.losses++;
         playerTwo.wins++;
-        $(".infoText").html(playerTwoName + " Wins!");
-        $(".vsText").html("Paper covers rock!");
+        $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Paper covers rock!");
 
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "rock")) {
         playerOne.losses++;
         playerTwo.wins++;
-        $(".infoText").html(playerTwoName + " Wins!");
-        $(".vsText").html("Rock crushes scissors!");
+        $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Rock crushes scissors!");
 
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "paper")) {
         playerOne.wins++;
         playerTwo.losses++;
-        $(".infoText").html(playerOneName + " Wins!");
-        $(".vsText").html("Scissor cuts through paper!");
+        $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Scissor cuts through paper!");
 
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "rock")) {
         playerOne.wins++;
         playerTwo.losses++;
-        $(".infoText").html(playerOneName + " Wins!");
-        $(".vsText").html("Paper covers rock!");
+        $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Paper covers rock!");
 
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "scissor")) {
         playerOne.losses++;
         playerTwo.wins++;
-        $(".infoText").html(playerTwoName + " Wins!");
-        $(".vsText").html("Scissor cuts through paper!");
+        $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Scissor cuts through paper!");
 
       } else if (playerOne.choice === playerTwo.choice) {
         playerOne.ties++;
         playerTwo.ties++;
-        $(".infoText").html("Tie Game!");
-        $(".vsText").html(playerOneName + " & " + playerTwoName + " chose the same!");
+        $(".infoText").html("Tie Game!" + "<br>" + playerOneName + " & " + playerTwoName + " chose the same!");
       }
 //---------------------------------------------------------------------------------------
 
@@ -103,10 +96,8 @@ var config = {
        //-------------------------------------------------------------------------------------------
 
        database.ref('players/playerTwo').set(playerTwo);
-       $(".infoText").show('slow');
-       $(".vsText").show('slow');
+       $(".infoText").show(2000);
        $(".infoText").hide(5000);
-       $(".vsText").hide(5000);
        $(".p1Select").show(4000);
        $(".p2Select").show(4000);
     }
@@ -196,17 +187,18 @@ database.ref("chat/message").on("child_added", function(childSnapshot){
   });
 //---------------------------------------------------------------------------------------
 
-//chat box----
-
+//chat box-------------------------------------------------------------------------------
 var message = ""
 
 $("#add-chat").on("click", function(event){
   event.preventDefault();
-  message = userplayerName + ": " + $('#chat-input').val().trim() + "<br>";
-  database.ref('chat/message').push({
-    message: message
-  });
+  if($('#chat-input').val() !== '' && playerOne !== null && playerTwo !== null ){
+    message = "<strong>" + userplayerName + "</strong>" + ": " + $('#chat-input').val().trim() + "<br>";
+    database.ref('chat/message').push({
+      message: message
+    });
+  }  
   $('#chat-input').val('');
   database.ref('chat/message').onDisconnect().remove();
-  
 });
+//---------------------------------------------------------------------------------------
