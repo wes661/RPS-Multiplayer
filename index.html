@@ -4,6 +4,8 @@
 	<title>RPS</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<link href="https://fonts.googleapis.com/css?family=Rammetto+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body>	
@@ -16,20 +18,24 @@
   					<div class="form-group player-input">
     					<input type="text" class="form-control" id="user-name" placeholder="Enter Name">
   					</div>
-  					<button type="button" class="btn btn-primary rpsButton" id="add-player" type="submit">PLAY</button>
+  					<button type="button" class="btn btn-danger rpsButton" id="add-player" type="submit">PLAY</button>
   				</form>	
 			</div>
-			<div class="col-sm-4">
-				<div class="card infoBox">
-  					<div class="card-header infoDisplay">
-    					<center>How sh*t gets settled</center>
-  					</div>
-  					<div class="card-body">
-    					<center><p class="card-text infoText"></p></center>
-  					</div>
+			<div class="col-sm-8">
+				<div class="card chat-area">
+						<div class="card-body">
+							<div id="chatTextArea"></div>
+						</div>
 				</div>
+				<form>
+					<div class="form-group chatBox">
+						<br>  
+						<input type="text" class="form-control chatText" id="chat-input">
+						<br>
+						<center><button class="btn btn-danger rpsButton" id="add-chat" type="submit">Talk sh*t!</button></center>
+					</div>
+				</form>	
 			</div>
-			<div class="col-sm-4"></div>
 		</div>	
 		<br>
 		<div class="row">
@@ -44,33 +50,26 @@
             		<div class="card-footer">
 						<center>
 							<div>
-								<button class=" btn btn-danger card-text Rock p1Select" data-choice = 'rock'><img class="img-thumbnail" src="assets/images/rockicon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Rock p1Select" data-choice = 'rock'><img class="img-thumbnail gameImg" src="assets/images/rockicon.png" alt="Rock"></button>
 								
-								<button class=" btn btn-danger card-text Paper p1Select" data-choice = 'paper'><img class="img-thumbnail" src="assets/images/papericon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Paper p1Select" data-choice = 'paper'><img class="img-thumbnail gameImg" src="assets/images/papericon.png" alt="Paper"></button>
 								
-								<button class=" btn btn-danger card-text Scissor p1Select" data-choice = 'scissor'><img class="img-thumbnail" src="assets/images/scissoricon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Scissor p1Select" data-choice = 'scissor'><img class="img-thumbnail gameImg" src="assets/images/scissoricon.png" alt="Scissor"></button>
 							</div>
 						</center>		
             		</div>
 				</div>
 			</div>
 			<div class="col-sm-4">
-					<div class="card chat-area">
-						  <div class="card-body">
-							  <div id="chatTextArea">
-								  
-							  </div>
-						  </div>
+				<div class="card infoBox">
+					<div class="card-header infoDisplay">
+						<center>How sh*t gets settled</center>
 					</div>
-					<form>
-						  <div class="form-group chatBox">
-							<br>  
-							<input type="text" class="form-control chatText" id="chat-input">
-							<br>
-							<center><button class="btn btn-primary rpsButton" id="add-chat" type="submit">Talk sh*t!</button></center>
-						  </div>
-					  </form>	
-				</div>	
+					<div class="card-body">
+						<center><p class="card-text infoText"></p></center>
+					</div>
+				</div>
+			</div>	
 				
 			<div class="col-sm-4">
 				<div class="card playerTwo">
@@ -83,11 +82,11 @@
             		<div class="card-footer">
 						<center>
 							<div>
-								<button class=" btn btn-danger card-text Rock p2Select" data-choice = 'rock'><img class="img-thumbnail" src="assets/images/rockicon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Rock p2Select" data-choice = 'rock'><img class="img-thumbnail gameImg" src="assets/images/rockicon.png" alt="Rock"></button>
 								
-								<button class=" btn btn-danger card-text Paper p2Select" data-choice = 'paper'><img class="img-thumbnail" src="assets/images/papericon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Paper p2Select" data-choice = 'paper'><img class="img-thumbnail gameImg" src="assets/images/papericon.png" alt="Paper"></button>
 								
-								<button class=" btn btn-danger card-text Scissor p2Select" data-choice = 'scissor'><img class="img-thumbnail" src="assets/images/scissoricon.png" alt="Thumbnail image"></button>
+								<button class=" btn btn-danger card-text Scissor p2Select" data-choice = 'scissor'><img class="img-thumbnail gameImg" src="assets/images/scissoricon.png" alt="Scissor"></button>
 							</div>
 						</center>		
             		</div>

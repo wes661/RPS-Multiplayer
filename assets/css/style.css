@@ -4,6 +4,7 @@ body{
    	background-attachment:fixed;
    	background-position:center; 
 	color: white;
+	font-family: 'Rammetto One', cursive;
 }
 
 .btn{
@@ -43,25 +44,24 @@ body{
 	width: 100%;
 }
 .chatBox{
-	width: 50%;
-	margin-left: 25%;
+	width: 25%;
+	margin-left: 10%;
 }
 .chat-area{
 	height: 200px;
 	font-size: 20px;
-	width: 75%;
-	margin-left: 12.5%;
+	width: 35.5%;
+	margin-left: 5%;
 }
 #chatTextArea{
 	height: 200px;
 	overflow: auto;
-	
+	font-family: sans-serif;
 }
 
 
 .p1Select,.p2Select{
-	display: none;
-	color: white;
+	background: rgba(0,0,0,0.6);
 }
 .infoText, .vsText{
 	display: none;
@@ -69,10 +69,13 @@ body{
 #chat-input, #user-name{
 	background: rgba(0,0,0,0.6);
 	color: white;
+	font-family: sans-serif;
 }
 
 .rpsButton{
 	background: rgba(0,0,0,0.6);
 	color: white;
+	width: auto;
 }
+
 

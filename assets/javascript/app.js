@@ -28,8 +28,8 @@ var config = {
 
       playerOne = snapshot.val().playerOne;
       playerOneName = playerOne.name;
-      $("#p1name-display").text(playerOneName);
-      $("#p1Stats").html("Wins: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
+      $("#p1name-display").fadeIn('slow').text(playerOneName);
+      $("#p1Stats").fadeIn('slow').html("Wins: " + playerOne.wins + "<br>" + " Losses: " + playerOne.losses + "<br>" + " Ties: " + playerOne.ties);
     };
 
     if(snapshot.child("playerTwo").exists()) {
@@ -39,6 +39,8 @@ var config = {
       playerTwoName = playerTwo.name;
       $("#p2name-display").text(playerTwoName);
       $("#p2Stats").html("Wins: " + playerTwo.wins + "<br>" + " Losses: " + playerTwo.losses + "<br>" + " Ties: " + playerTwo.ties);
+      $("#p2name-display").fadeIn('slow');
+      $("#p2Stats").fadeIn('slow');
     };
 
     
@@ -49,60 +51,76 @@ var config = {
     if (playerOne.choice !== "" && playerTwo.choice !== "") {
 
       if (playerOne.choice === "rock" && playerTwo.choice === "scissor") {
-        playerTwo.losses++;
         playerOne.wins++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
+        playerTwo.losses++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Rock crushes scissors!");
 
       } else if ((playerOne.choice === "rock") && (playerTwo.choice === "paper")) {
         playerOne.losses++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.wins++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Paper covers rock!");
 
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "rock")) {
         playerOne.losses++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.wins++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Rock crushes scissors!");
 
       } else if ((playerOne.choice === "scissor") && (playerTwo.choice === "paper")) {
         playerOne.wins++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.losses++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Scissor cuts through paper!");
 
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "rock")) {
         playerOne.wins++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.losses++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerOneName + " Wins!" + "<br>" + "Paper covers rock!");
 
       } else if ((playerOne.choice === "paper") && (playerTwo.choice === "scissor")) {
         playerOne.losses++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.wins++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html(playerTwoName + " Wins!" + "<br>" + "Scissor cuts through paper!");
 
       } else if (playerOne.choice === playerTwo.choice) {
         playerOne.ties++;
+        playerOne.choice = "";
+        database.ref('players/playerOne').set(playerOne);
         playerTwo.ties++;
+        playerTwo.choice = "";
+        database.ref('players/playerTwo').set(playerTwo);
         $(".infoText").html("Tie Game!" + "<br>" + playerOneName + " & " + playerTwoName + " chose the same!");
       }
 //---------------------------------------------------------------------------------------
 
-//database resets players choice so they can play again----------------------------------
-       
-       playerOne.choice = "";
-       playerTwo.choice = "";
-       database.ref('players/playerOne').set(playerOne);
-
-       //using this to reset choice for playerTwo because its only setting playerOne for some reason
-       database.ref('players/playerTwo').update({'choice': ""});
-       //-------------------------------------------------------------------------------------------
-
-       database.ref('players/playerTwo').set(playerTwo);
-       $(".infoText").show(2000);
-       $(".infoText").hide(5000);
+       $(".infoText").fadeIn('slow');
+       $(".infoText").fadeOut(4000);
        $(".p1Select").show(4000);
        $(".p2Select").show(4000);
     }
 
-    
 //---------------------------------------------------------------------------------------
 
 //error handling-------------------------------------------------------------------------
@@ -140,7 +158,6 @@ database.ref("chat/message").on("child_added", function(childSnapshot){
           };
             $('.player-input').fadeOut('slow');
             $('#add-player').fadeOut('slow');
-            $(".p1Select").show('slow');
             $('#p1Stats').show('slow');
             database.ref('players/playerOne').set(playerOne);
             database.ref('players/playerOne').onDisconnect().remove();
@@ -160,7 +177,6 @@ database.ref("chat/message").on("child_added", function(childSnapshot){
           };
               $('.player-input').fadeOut('slow');
               $('#add-player').fadeOut('slow');
-              $(".p2Select").show('slow');
               $('#p2Stats').show('slow');
               database.ref('players/playerTwo').set(playerTwo);
               database.ref('players/playerTwo').onDisconnect().remove();
