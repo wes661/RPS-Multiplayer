@@ -48,13 +48,13 @@ body{
 	
 }
 .chat-area{
-	height: 240px;
+	height: 180px;
 	font-size: 20px;
-	width: 50%;
+	width: 40%;
 	
 }
 #chatTextArea{
-	height: 200px;
+	height: 140px;
 	overflow: auto;
 	font-family: sans-serif;
 	
